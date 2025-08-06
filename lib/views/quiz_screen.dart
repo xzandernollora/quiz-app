@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz_app/views/result_screen.dart';
 import 'package:flutter_quiz_app/widgets/my_button.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -93,10 +93,14 @@ class _QuizScreenState extends State<QuizScreen> {
       });
     } else {
       await _updateUserScore();
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => ResultScreen()),
-      // );
+      Navigator.pushReplacement(
+        // ignore: use_build_context_synchronously
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              ResultScreen(score: score, totalQuestion: question.length),
+        ),
+      );
     }
   }
 
@@ -107,11 +111,11 @@ class _QuizScreenState extends State<QuizScreen> {
       var userRef = FirebaseFirestore.instance
           .collection("userData")
           .doc(user.uid);
-      await FirebaseFirestore.instance.runTransaction((Transaction) async {
-        var snapshot = await Transaction.get(userRef);
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        var snapshot = await transaction.get(userRef);
         if (!snapshot.exists) return;
         int existingScore = snapshot['score'] ?? 0;
-        Transaction.update(userRef, {'score': existingScore + score});
+        transaction.update(userRef, {'score': existingScore + score});
       });
     } catch (e) {
       debugPrint('error updating score $e');

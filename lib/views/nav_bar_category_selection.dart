@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz_app/views/leaderboard.dart';
+import 'package:flutter_quiz_app/views/profile_screen.dart';
 import 'package:flutter_quiz_app/views/quiz_category.dart';
 
 class NavBarCategorySelection extends StatefulWidget {
@@ -13,11 +15,7 @@ class NavBarCategorySelection extends StatefulWidget {
 class _NavBarCategorySelectionState extends State<NavBarCategorySelection> {
   final PageStorageBucket bucket = PageStorageBucket();
 
-  final pages = [
-    const QuizCategory(),
-    Scaffold(body: Center(child: Text("Leaderboard"))),
-    Scaffold(body: Center(child: Text("Profile"))),
-  ];
+  final pages = [const QuizCategory(), Leaderboard(), ProfileScreen()];
 
   late int selectedIndex;
   @override
@@ -48,10 +46,10 @@ class _NavBarCategorySelectionState extends State<NavBarCategorySelection> {
             label: "Categories",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category),
+            icon: Icon(Icons.graphic_eq),
             label: "Leaderboard",
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.category), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
     );

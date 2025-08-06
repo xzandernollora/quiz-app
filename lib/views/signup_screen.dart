@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz_app/service/auth_service.dart';
 import 'package:flutter_quiz_app/views/login_screen.dart';
@@ -26,6 +27,9 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       isLoading = true;
     });
+
+    Uint8List? profileImageBytes;
+
     final result = await _authService.signUpUser(
       email: emailController.text,
       password: passwordController.text,
