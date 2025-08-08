@@ -63,7 +63,6 @@ class _QuizScreenState extends State<QuizScreen> {
             setState(() => question = fetchedQuestions);
           }
         }
-        ;
       }
     } catch (e) {
       print(e.toString());
